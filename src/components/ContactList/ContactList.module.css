@@ -1,0 +1,17 @@
+.list {
+  width: 500px;
+  text-align: center;
+  list-style: none;
+}
+
+.listItem {
+  margin-bottom: 20px;
+}
+
+.listItemText {
+  margin-right: 10px;
+}
+
+.btn {
+  margin-left: 20px;
+}

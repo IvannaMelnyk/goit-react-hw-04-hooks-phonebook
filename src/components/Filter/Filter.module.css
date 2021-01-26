@@ -1,0 +1,19 @@
+.label {
+  display: block;
+  margin-top: 10px;
+  color: rgb(rgb(76, 0, 255));
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.input {
+  margin-top: 5px;
+  display: block;
+  width: 25%;
+  height: 35px;
+  margin-right: auto;
+}
+
+.input:focus {
+  outline-color: rgba(16, 16, 99, 0.719);
+}
