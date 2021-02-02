@@ -1,65 +1,78 @@
-// import PropTypes from 'prop-types';
-import { Component } from 'react';
-import { v4 as uuid } from 'uuid';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 import s from './ContactForm.module.css';
 
-const INITIAL_STATE = {
-  name: '',
-  phone: '',
-};
+export default function ContactForm({ contacts, onSubmit }) {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
-class ContactForm extends Component {
-  state = INITIAL_STATE;
+  const contactValidation = () => {
+    if (contacts.find(contact => name === contact.name)) {
+      alert(`${name} is already in contacts`);
+      return true;
+    }
 
-  handleChangeForm = ({ target }) => {
-    const { name, value } = target;
-    this.setState({ [name]: value });
+    if (name === '' || number === '') {
+      alert('Please enter all data');
+      return true;
+    }
   };
-  handleFormSubmit = e => {
+
+  const handleSubmit = e => {
     e.preventDefault();
 
-    const { name, phone } = this.state;
-    const { onAdd } = this.props;
-    const isValidatedForm = this.validateForm();
-    if (!isValidatedForm) return;
-    onAdd({ id: uuid(), name, phone });
-    this.resetForm();
-  };
-  validateForm = () => {
-    const { name, phone } = this.state;
-    const { onCheckUnique } = this.props;
-    if (!name || !phone) {
-      alert('Some filed is empty');
-      return false;
+    if (contactValidation()) {
+      return;
     }
-    return onCheckUnique(name);
+
+    onSubmit(name, number);
+    reset();
   };
-  resetForm = () => this.setState(INITIAL_STATE);
-  render() {
-    const { name, phone } = this.state;
-    return (
-      <form className={s.form} onSubmit={this.handleFormSubmit}>
+
+  const reset = () => {
+    setName('');
+    setNumber('');
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className={s.form}>
+      <label className={s.formItem}>
+        Name
         <input
-          className={s.input}
           type="text"
           name="name"
-          placeholder="Enter name"
           value={name}
-          onChange={this.handleChangeForm}
-        />
-        <input
+          placeholder="Сontact name"
+          onChange={e => setName(e.currentTarget.value)}
           className={s.input}
-          type="tel"
-          name="phone"
-          placeholder="Enter phone"
-          value={phone}
-          onChange={this.handleChangeForm}
         />
-        <button className={s.button} type="submit">
-          Add Contact
-        </button>
-      </form>
-    );
-  }
+      </label>
+
+      <label className={s.formItem}>
+        Number
+        <input
+          type="tel"
+          name="number"
+          value={number}
+          placeholder="Сontact number"
+          onChange={e => setNumber(e.currentTarget.value)}
+          className={s.input}
+        />
+      </label>
+      <button type="submit" className={s.button}>
+        Add contact
+      </button>
+    </form>
+  );
 }
-export default ContactForm;
+
+ContactForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    }),
+  ),
+};

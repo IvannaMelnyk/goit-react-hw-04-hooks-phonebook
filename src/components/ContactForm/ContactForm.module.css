@@ -1,10 +1,16 @@
 .form {
-  display: inline-flex;
+  display: flex;
   box-sizing: border-box;
+  align-items: center;
   padding: 5px;
   margin: 5px;
   flex-wrap: wrap;
   font-family: 'Roboto', sans-serif;
+}
+.label {
+  display: block;
+  text-align: center;
+  font-weight: 700;
 }
 .input {
   margin-top: 5px;

@@ -1,4 +1,4 @@
-.label {
+.filterLabel {
   display: block;
   margin-top: 10px;
   color: rgb(rgb(76, 0, 255));
@@ -6,7 +6,7 @@
   font-size: 18px;
 }
 
-.input {
+.filterInput {
   margin-top: 5px;
   display: block;
   width: 25%;
@@ -14,6 +14,6 @@
   margin-right: auto;
 }
 
-.input:focus {
+.filterInput:focus {
   outline-color: rgba(16, 16, 99, 0.719);
 }
